@@ -11,8 +11,8 @@
         android:theme="@style/Theme.FlappyBird" >
         <activity
             android:name=".MenueActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
