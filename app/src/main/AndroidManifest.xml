@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FlappyBird" >
         <activity
-            android:name=".SplashActivtiy"
+            android:name=".MenueActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true">
             <intent-filter>
