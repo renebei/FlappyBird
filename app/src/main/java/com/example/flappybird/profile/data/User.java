@@ -1,4 +1,4 @@
-package com.example.flappybird.profile;
+package com.example.flappybird.profile.data;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
