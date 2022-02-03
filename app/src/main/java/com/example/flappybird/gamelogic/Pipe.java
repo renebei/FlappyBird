@@ -3,14 +3,11 @@ package com.example.flappybird.gamelogic;
 public class Pipe extends GameObject{
     private float width;
     private float height;
-    private RectangleCollider collider;
 
-    public Pipe(Position position, float width, float height, float speed) {
+    public Pipe(Position position, float width, float height) {
         super(position);
-        collider = new RectangleCollider(position, width, height);
         this.height = height;
         this.width = width;
-
     }
 
     @Override
@@ -19,6 +16,14 @@ public class Pipe extends GameObject{
     }
 
     public RectangleCollider getCollider() {
-        return collider;
+        return new RectangleCollider(getPosition(), width, height);
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
     }
 }

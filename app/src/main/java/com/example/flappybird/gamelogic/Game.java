@@ -1,6 +1,166 @@
 package com.example.flappybird.gamelogic;
 
-public class Game {
-    public static final float GRAVIATION = 1.f;
-    public static final float SPEED = 1.f;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.os.Build;
+import android.util.Log;
+import android.view.WindowManager;
+
+import androidx.annotation.RequiresApi;
+
+import java.lang.reflect.Array;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Game extends Thread{
+    public static final float GRAVIATION = 1500.f;
+    public static final float SPEED = -300.f;
+    private com.example.flappybird.Game game;
+    private Player player = new Player(new Position(100f,10f), 40f);
+
+    public Game(com.example.flappybird.Game game){
+        this.game = game;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void run(){
+        try {
+            GameLoop();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void GameLoop() throws InterruptedException {
+        int frameTimeStartNano = LocalDateTime.now().getNano();
+
+        ArrayList<Pipe> pipes = new ArrayList<>();
+        ArrayList<ScoreTrigger> scoreTriggers = new ArrayList<>();
+        float spawnRate = 2.f;
+        float currentSpawnRate = 0;
+        while(true) {
+
+            int frameTimeNano = LocalDateTime.now().getNano() -  frameTimeStartNano; // How this wrong
+            if(frameTimeNano < 0) frameTimeNano += 1000000000;
+
+            float frameTime =  frameTimeNano / 1000000000.f;
+            //Log.e("frameTime: ", ""+  frameTime);
+
+            frameTimeStartNano = LocalDateTime.now().getNano();
+
+            player.update(frameTime);
+            if(!player.isDead()){
+                for(Pipe p : pipes){
+                    p.update(frameTime);
+                }
+                for(ScoreTrigger s : scoreTriggers){
+                    s.update(frameTime);
+                }
+            }
+
+            // counting down spawn rate
+            if(currentSpawnRate <= 0){
+                Random r = new Random(LocalDateTime.now().getNano());
+                int randomY = r.nextInt(800) - 400;
+                obstacleSpawner(pipes, new Position(2000, -400 + randomY), scoreTriggers);
+                currentSpawnRate = spawnRate;
+            } else {
+                currentSpawnRate -= frameTime;
+            }
+
+            //obstacleDeleter(pipes);
+            checkCollision(pipes, player, scoreTriggers);
+            drawAll(player, pipes);
+        }
+    }
+
+    private void checkCollision(ArrayList<Pipe> pipes, Player player, ArrayList<ScoreTrigger> scoreTriggers){
+        for(Pipe p : pipes){
+            if( player.getCollider().collides(p.getCollider())) {
+                Log.e("Dead.", "Player just died wtf");
+                player.kill();
+            }
+        }
+
+        for(ScoreTrigger s : scoreTriggers){
+            if( player.getCollider().collides(s.getCollider()) && !s.getHasTriggered()) {
+                s.setHasTriggered(true);
+                player.addScore();
+                Log.e("Score", "Player score now " + player.getScore());
+            }
+        }
+
+        // upper and downer check
+        if(player.getPosition().getY() < 0) player.kill();
+    }
+
+    private void obstacleDeleter(ArrayList<Pipe> pipes){
+        for(Pipe p : pipes){
+            if(p.getPosition().getX() < 0) pipes.remove(p);
+        }
+    }
+
+    private void obstacleSpawner( ArrayList<Pipe> pipes, Position pos, ArrayList<ScoreTrigger> scoreTriggers){
+        float pipeWidth = 60f;
+        float pipeHeight = 1400f;
+        float scoreHeight = 300f;
+
+        // TODO maybe add a check if arraylist are avaible
+        pipes.add(new Pipe(pos, pipeWidth, pipeHeight));
+        scoreTriggers.add(new ScoreTrigger(pos.addPosition(0, pipeHeight), pipeWidth, scoreHeight));
+        pipes.add(new Pipe(pos.addPosition(0, pipeHeight + scoreHeight), pipeWidth, pipeHeight));
+    }
+
+    private void drawBackGround(Canvas canvas){
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+
+        canvas.drawRect(0,0,game.getPhoneSize().x, game.getPhoneSize().y, paint);
+
+    }
+
+    private void drawPlayer(Player player, Canvas canvas){
+        Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+
+        canvas.drawCircle(player.getPosition().getX(), player.getPosition().getY(), player.getRadius(), paint);
+    }
+
+    private void drawPipes(ArrayList<Pipe> pipes, Canvas canvas){
+        Paint paint = new Paint();
+        paint.setColor(Color.YELLOW);
+
+        for(Pipe p : pipes){
+            canvas.drawRect(p.getPosition().getX(), p.getPosition().getY(), p.getPosition().getX() + p.getWidth(), p.getPosition().getY() + p.getHeight(), paint);
+        }
+    }
+
+    private void drawAll(Player player, ArrayList<Pipe> pipes){
+        Canvas canvas = null;
+        try {
+            canvas = game.getHolder().lockCanvas();
+            synchronized (game.getHolder()) {
+                if(canvas != null) {
+                    drawBackGround(canvas);
+                    drawPipes(pipes, canvas);
+                    drawPlayer(player, canvas);
+                }
+            }
+        } catch (Exception e){
+            Log.e("no drawing", "error");
+        }
+        finally {
+            if (canvas != null) {
+                game.getHolder().unlockCanvasAndPost(canvas);
+            }
+        }
+    }
+
+    public void jump(){
+        player.jump();
+    }
 }
