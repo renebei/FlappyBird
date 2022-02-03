@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "user_table")
+@Entity(tableName = "User")
 public class User {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -14,7 +14,7 @@ public class User {
     @ColumnInfo(name="user_score")
     private int highscore;
 
-    //will be some sort of time datatype soon
+    //will be some sort of datatype to display hours and minutes soon.
     @ColumnInfo(name="user_playtime")
     private int time;
 

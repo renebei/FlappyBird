@@ -1,12 +1,16 @@
 package com.example.flappybird;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+
+import com.example.flappybird.profile.ProfileActivity;
 
 public class MenueActivity extends AppCompatActivity {
 
@@ -37,7 +41,8 @@ public class MenueActivity extends AppCompatActivity {
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("Profile", "2");
+                Intent intent = new Intent(MenueActivity.this, ProfileActivity.class);
+                startActivity(intent);
             }
         });
     }
