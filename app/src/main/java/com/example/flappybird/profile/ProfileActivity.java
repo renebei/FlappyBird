@@ -7,16 +7,22 @@ import com.example.flappybird.profile.data.UserDatabase;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 public class ProfileActivity extends AppCompatActivity {
 
     UserDao UDao;
+    UserDatabase Udb;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (UDao.getUser()[0] == null) {
+        Udb = UserDatabase.getInstance(this);
+        UDao = Udb.UserDao();
+        if (UDao.getUsername() == null) {
             Intent intent = new Intent(ProfileActivity.this, RegisterActivity.class);
             startActivity(intent);
+        } else {
+            Log.e("check", UDao.getUsername());
         }
         setContentView(R.layout.activity_profile);
     }

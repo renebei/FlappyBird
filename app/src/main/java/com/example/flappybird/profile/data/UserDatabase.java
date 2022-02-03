@@ -3,12 +3,10 @@ package com.example.flappybird.profile.data;
 import android.content.Context;
 
 import androidx.room.Database;
-import androidx.room.Entity;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Entity
-@Database(entities = {UserDatabase.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class}, version = 1, exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
 
     private static UserDatabase database;

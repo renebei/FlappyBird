@@ -5,9 +5,10 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "user_table")
+@Entity(tableName = "User")
 public class User {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name="user_id")
     private int id;
     @ColumnInfo(name="user_name")
     private String name;
