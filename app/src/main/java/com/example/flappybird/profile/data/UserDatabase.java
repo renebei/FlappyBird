@@ -6,12 +6,18 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {User.class}, version = 1, exportSchema = false)
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+@Database(entities = {User.class}, version =2, exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
 
-    private static UserDatabase database;
+    private static volatile UserDatabase database;
 
     private static final String DATABASE_NAME = "userdata";
+
+    static ExecutorService databaseWriterExecutorService =
+            Executors.newSingleThreadExecutor();
 
     public synchronized static UserDatabase getInstance(Context context) {
         if (database == null) {

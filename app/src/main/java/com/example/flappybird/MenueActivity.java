@@ -27,7 +27,6 @@ public class MenueActivity extends AppCompatActivity {
         this.background = findViewById(R.id.backg);
         this.playButton = findViewById(R.id.playbutton);
         this.profileButton = findViewById(R.id.profilebutton);
-        background.setZ(-20);
         buttonClicks();
     }
 

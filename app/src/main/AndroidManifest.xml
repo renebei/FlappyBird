@@ -11,9 +11,11 @@
         android:theme="@style/Theme.FlappyBird">
         <activity
             android:name=".profile.RegisterActivity"
-            android:exported="false" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:exported="false" />
         <activity
             android:name=".profile.ProfileActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".MenueActivity"

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.flappybird.MenueActivity;
 import com.example.flappybird.R;
 import com.example.flappybird.profile.data.User;
 import com.example.flappybird.profile.data.UserDao;
@@ -36,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (registeredName != null) {
                     User u = new User(registeredName);
                     UDao.insert(u);
-                    Intent intent = new Intent(RegisterActivity.this, ProfileActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, MenueActivity.class);
                     startActivity(intent);
                 }
             }

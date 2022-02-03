@@ -26,4 +26,7 @@ public interface UserDao {
 
         @Query("SELECT user_id FROM User limit 1")
         int getID();
+
+        @Query("SELECT * FROM User WHERE user_name = :Username")
+        User getComparedUsername(String Username);
 }
