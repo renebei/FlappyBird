@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.register_layout);
         Udb = UserDatabase.getInstance(this);
         UDao = Udb.UserDao();
-        editText = findViewById(R.id.inputText);
+        editText = findViewById(R.id.chooseName);
         btn = findViewById(R.id.submit);
 
         btn.setOnClickListener(new View.OnClickListener() {

@@ -6,10 +6,13 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.flappybird.history.History;
+import com.example.flappybird.history.HistoryDao;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class}, version =1, exportSchema = false)
+@Database(entities = {User.class, History.class}, version =2, exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
 
     private static volatile UserDatabase database;
@@ -32,4 +35,6 @@ public abstract class UserDatabase extends RoomDatabase {
     }
 
     public abstract UserDao UserDao();
+
+    public abstract HistoryDao HistoryDao();
 }

@@ -9,6 +9,10 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.flappybird.profile.data.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Dao
 public interface UserDao {
         @Insert(onConflict = REPLACE)

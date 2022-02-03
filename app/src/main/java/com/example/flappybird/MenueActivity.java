@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import com.example.flappybird.profile.ProfileActivity;
 import com.example.flappybird.profile.data.DatabaseAdapter;
+import com.example.flappybird.profile.data.User;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -38,15 +39,14 @@ public class MenueActivity extends AppCompatActivity {
         this.handler = new Handler(Looper.getMainLooper());
 
         test();
-
     }
 
     //should work
     private void test() {
         CompletableFuture<String> username = SQLadapter.getUsername();
-        CompletableFuture<Void> voidCompletableFuture = username.thenAccept((String) -> {
+        CompletableFuture<Void> voidCompletableFuture = username.thenAccept((user) -> {
             MenueActivity.this.handler.post(() -> {
-                Log.e("hallo", username.toString());
+                if(user != null) Log.e("hallo", user.toString());
             });
         });
     }
