@@ -17,7 +17,6 @@ public class DatabaseAdapter {
         this.Udao = Udb.UserDao();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public CompletableFuture<User> insertUsername(final String username) {
         return CompletableFuture.supplyAsync(() -> {
             this.Udao.insert(new User(username));
@@ -27,4 +26,11 @@ public class DatabaseAdapter {
         }, UserDatabase.databaseWriterExecutorService);
     }
 
+    public CompletableFuture<String> getUsername() {
+        return CompletableFuture.supplyAsync(() -> {
+            String username = this.Udao.getUsername();
+
+            return username;
+        }, UserDatabase.databaseWriterExecutorService);
+    }
 }
