@@ -9,7 +9,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.flappybird.profile.data.User;
-
 @Dao
 public interface UserDao {
         @Insert(onConflict = REPLACE)
@@ -22,6 +21,9 @@ public interface UserDao {
         void update(User user);
 
         //Here SQL Queries
-        @Query("SELECT user_name FROM User")
-        String[] getUser();
+        @Query("SELECT user_name FROM User limit 1")
+        String getUsername();
+
+        @Query("SELECT user_id FROM User limit 1")
+        int getID();
 }

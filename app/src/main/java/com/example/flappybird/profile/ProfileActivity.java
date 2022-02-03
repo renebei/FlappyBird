@@ -1,8 +1,6 @@
 package com.example.flappybird.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.flappybird.profile.data.User;
 import com.example.flappybird.profile.data.UserDao;
 import com.example.flappybird.R;
 import com.example.flappybird.profile.data.UserDatabase;
@@ -20,11 +18,12 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Udb = UserDatabase.getInstance(this);
         UDao = Udb.UserDao();
-        if (UDao.getUser() == null) {
+        if (UDao.getUsername() == null) {
             Intent intent = new Intent(ProfileActivity.this, RegisterActivity.class);
             startActivity(intent);
+        } else {
+            Log.e("check", UDao.getUsername());
         }
-        Log.e("check", "profile");
         setContentView(R.layout.activity_profile);
     }
 }
