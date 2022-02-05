@@ -1,31 +1,55 @@
 package com.example.flappybird.gamelogic;
 
 public class Player extends GameObject{
-    private final float JUMPFORCE = 5.f;
+    private final float JUMPFORCE = 800.f;
 
+    private boolean isDead;
+    private int score;
     private float radius;
-    private CircleCollider collider;
     private float force;
 
-    public Player(Position position, float radius, CircleCollider collider, float force) {
+    public Player(Position position, float radius) {
         super(position);
         this.radius = radius;
-        this.collider = collider;
-        this.force = force;
+        this.force = 0;
+        this.score = 0;
+        this.isDead = false;
     }
 
     @Override
     public void update(float frameTime) {
         // jump up or down
         super.move(0,force * frameTime);
-        force -= Game.GRAVIATION * frameTime;
+
+        force += Game.GRAVIATION * frameTime;
     }
 
     public void jump(){
-        force = JUMPFORCE;
+        if(isDead) return;
+        force = -JUMPFORCE;
     }
 
     public CircleCollider getCollider() {
-        return collider;
+        return new CircleCollider(radius, getPosition());
+    }
+
+    public float getRadius() {
+        return radius;
+    }
+
+    public void kill(){
+        this.isDead = true;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void addScore(){
+        this.score++;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

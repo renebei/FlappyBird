@@ -26,4 +26,8 @@ public class Position {
     public float getY() {
         return y;
     }
+
+    public Position addPosition(float x, float y){
+        return new Position(this.x + x, this.y + y);
+    }
 }

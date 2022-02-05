@@ -15,5 +15,9 @@ public abstract class GameObject {
         this.position.setPosition(x,y);
     }
 
+    public Position getPosition() {
+        return position;
+    }
+
     public abstract void update(float frameTime);
 }

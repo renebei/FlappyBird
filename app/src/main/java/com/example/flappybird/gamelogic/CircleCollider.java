@@ -1,10 +1,12 @@
 package com.example.flappybird.gamelogic;
 
+import android.util.Log;
+
 public class CircleCollider implements Collider {
     private final float radius;
     private Position position;
 
-    public CircleCollider(int radius, Position pos) {
+    public CircleCollider(float radius, Position pos) {
         this.radius = radius;
         this.position = pos;
     }
@@ -20,21 +22,20 @@ public class CircleCollider implements Collider {
         ) < (getRadius() + getRadius());
     }
 
-    public boolean collides(RectangleCollider c) {
-        //check for x collision
-        return ((getPosition().getX() > c.getPosition().getX() && getPosition().getX() < c.getPosition().getX() + c.getWidth())
-                || (getPosition().getX() + radius > c.getPosition().getX() && getPosition().getX() + radius < c.getPosition().getX() + c.getWidth())
-                || (getPosition().getX() - radius > c.getPosition().getX() && getPosition().getX() - radius < c.getPosition().getX() + c.getWidth())
-                // if ball to big <3
-                || (getPosition().getX() - radius < c.getPosition().getX() && getPosition().getX() + radius > c.getPosition().getX() + c.getWidth())
-        ) &&
-                //check for y collision
-                ((getPosition().getY() > c.getPosition().getY() && getPosition().getY() < c.getPosition().getY() + c.getWidth())
-                        || (getPosition().getY() + radius > c.getPosition().getY() && getPosition().getY() + radius < c.getPosition().getY() + c.getWidth())
-                        || (getPosition().getY() - radius > c.getPosition().getY() && getPosition().getY() - radius < c.getPosition().getY() + c.getWidth())
-                        // if ball to big <3
-                        || (getPosition().getY() - radius < c.getPosition().getY() && getPosition().getY() + radius > c.getPosition().getY() + c.getWidth())
-                );
+    public boolean collides(RectangleCollider r) {
+        // https://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-with-circle
+        float distX = Math.abs(position.getX() - r.getPosition().getX()- r.getWidth()/2);
+        float distY = Math.abs(position.getY() - r.getPosition().getY() -r.getHeight()/2);
+
+        if (distX > (r.getWidth()/2 + this.getRadius())) { return false; }
+        if (distY > (r.getHeight()/2 + this.getRadius())) { return false; }
+
+        if (distX <= (r.getWidth()/2)) { return true; }
+        if (distY <= (r.getHeight()/2)) { return true; }
+
+        float dx=distX-r.getWidth()/2;
+        float dy=distY-r.getHeight()/2;
+        return (dx*dx+dy*dy<=(this.getRadius()*this.getRadius()));
     }
 
     @Override

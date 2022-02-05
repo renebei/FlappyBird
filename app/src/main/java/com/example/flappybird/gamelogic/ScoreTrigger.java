@@ -1,13 +1,12 @@
 package com.example.flappybird.gamelogic;
 
 public class ScoreTrigger extends GameObject {
-    private RectangleCollider collider;
     private float width;
     private float height;
+    private boolean hasTriggered;
 
-    public ScoreTrigger(Position position, float width, float height, float speed) {
+    public ScoreTrigger(Position position, float width, float height) {
         super(position);
-        collider = new RectangleCollider(position, width, height);
         this.height = height;
         this.width = width;
 
@@ -19,6 +18,15 @@ public class ScoreTrigger extends GameObject {
     }
 
     public RectangleCollider getCollider() {
-        return collider;
+        return new RectangleCollider(getPosition(), width, height);
     }
+
+    public boolean getHasTriggered() {
+        return hasTriggered;
+    }
+
+    public void setHasTriggered(boolean hasTriggered) {
+        this.hasTriggered = hasTriggered;
+    }
+
 }
