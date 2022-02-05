@@ -12,7 +12,7 @@ import com.example.flappybird.history.HistoryDao;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, History.class}, version =2, exportSchema = false)
+@Database(entities = {User.class, History.class}, version =1, exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
 
     private static volatile UserDatabase database;

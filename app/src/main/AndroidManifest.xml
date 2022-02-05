@@ -17,6 +17,7 @@
             android:name=".profile.ProfileActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
+
         <activity
             android:name=".MenueActivity"
             android:exported="true"

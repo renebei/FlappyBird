@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.example.flappybird.gamelogic.Game;
 import com.example.flappybird.profile.ProfileActivity;
 import com.example.flappybird.profile.data.DatabaseAdapter;
 import com.example.flappybird.profile.data.User;
@@ -55,6 +56,8 @@ public class MenueActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MenueActivity.this, Game.class);
+
                 Log.e("Play", "Here Intent to Game");
             }
         });
