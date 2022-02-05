@@ -14,14 +14,14 @@ import java.util.List;
 @Dao
 public interface HistoryDao {
     @Insert(onConflict = REPLACE)
-    void insert(History history);
+    void insert(Attempt attempt);
 
     @Delete
-    void delete(History history);
+    void delete(Attempt attempt);
 
     @Update
-    void update(History history);
+    void update(Attempt attempt);
 
-    @Query("SELECT * FROM History limit 10")
-    List<History> getLastTenMatches();
+    @Query("SELECT * FROM Attempts limit 10")
+    List<Attempt> getLastTenMatches();
 }

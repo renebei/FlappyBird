@@ -6,8 +6,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "history")
-public class History {
+@Entity(tableName = "Attempts")
+public class Attempt {
 
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name="history_id")
@@ -19,7 +19,7 @@ public class History {
         @ColumnInfo(name="history_date")
         private String date;
 
-        public History(int score, String date) {
+        public Attempt(int score, String date) {
             this.score = score;
             this.date = date;
         }

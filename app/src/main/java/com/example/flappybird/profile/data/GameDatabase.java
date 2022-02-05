@@ -7,15 +7,15 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.flappybird.profile.history.Attempt;
 import com.example.flappybird.profile.user.User;
 import com.example.flappybird.profile.user.UserDao;
-import com.example.flappybird.profile.history.History;
 import com.example.flappybird.profile.history.HistoryDao;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, History.class}, version = 2, exportSchema = false)
+@Database(entities = {User.class, Attempt.class}, version = 1, exportSchema = false)
 public abstract class GameDatabase extends RoomDatabase {
 
     private static volatile GameDatabase database;
@@ -27,7 +27,6 @@ public abstract class GameDatabase extends RoomDatabase {
 
     public synchronized static GameDatabase getInstance(Context context) {
         if (database == null) {
-            //if null init
             database = Room.databaseBuilder(context.getApplicationContext()
                     , GameDatabase.class, DATABASE_NAME)
                     .allowMainThreadQueries()

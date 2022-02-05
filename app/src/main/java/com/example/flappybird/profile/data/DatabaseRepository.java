@@ -2,23 +2,20 @@ package com.example.flappybird.profile.data;
 //René Beiermann
 
 import android.app.Application;
-import android.util.Log;
 
+import com.example.flappybird.profile.history.Attempt;
 import com.example.flappybird.profile.user.User;
-import com.example.flappybird.profile.history.History;
 import com.example.flappybird.profile.history.HistoryDao;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-//IS GOING TO BE USED LATER. WILL RUN IN BACKGROUND THREAD
-
-public class DatabaseAdapter {
+public class DatabaseRepository {
     private com.example.flappybird.profile.user.UserDao UserDao;
     private HistoryDao HistoryDao;
 
 
-    public DatabaseAdapter(Application application) {
+    public DatabaseRepository(Application application) {
         GameDatabase Udb = GameDatabase.getInstance(application);
         this.UserDao = Udb.UserDao();
         this.HistoryDao = Udb.HistoryDao();
@@ -36,17 +33,22 @@ public class DatabaseAdapter {
     public CompletableFuture<String> getUsername() {
         return CompletableFuture.supplyAsync(() -> {
             String user = this.UserDao.getUsername();
-            Thread thread = Thread.currentThread();
-            Log.e("test thread 2", String.valueOf(thread.getId()));
             return user;
         }, GameDatabase.databaseWriterExecutorService);
     }
 
-    public void addAttempt(int score, String dateTime) {
-        HistoryDao.insert(new History(score, dateTime));
+    public CompletableFuture<Attempt> addAttempt(int score, String dateTime) {
+        return CompletableFuture.supplyAsync(() ->{
+            Attempt attempt = new Attempt(score, dateTime);
+            this.HistoryDao.insert(attempt);
+            return attempt;
+        }, GameDatabase.databaseWriterExecutorService);
     }
 
-    public List<History> getHistory() {
-        return HistoryDao.getLastTenMatches();
+    public CompletableFuture<List<Attempt>> getHistory() {
+        return CompletableFuture.supplyAsync(() ->{
+            List<Attempt> attempt = HistoryDao.getLastTenMatches();
+            return attempt;
+        }, GameDatabase.databaseWriterExecutorService);
     }
 }

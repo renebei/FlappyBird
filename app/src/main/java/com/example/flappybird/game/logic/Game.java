@@ -11,7 +11,7 @@ import androidx.annotation.RequiresApi;
 import com.example.flappybird.game.GameActivity;
 import com.example.flappybird.game.objects.Pipe;
 import com.example.flappybird.game.objects.Player;
-import com.example.flappybird.profile.data.DatabaseAdapter;
+import com.example.flappybird.profile.data.DatabaseRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,12 +24,11 @@ public class Game extends Thread {
     private GameActivity gameActivity;
     private Player player = new Player(new Position(100f,10f), 40f);
 
-    //René Beiermann
-    private DatabaseAdapter dataAdapter;
+    private DatabaseRepository dataAdapter;
 
     public Game(GameActivity gameActivity){
         this.gameActivity = gameActivity;
-        this.dataAdapter = new DatabaseAdapter(this.gameActivity.getApplication());
+        this.dataAdapter = new DatabaseRepository(this.gameActivity.getApplication());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -113,9 +112,7 @@ public class Game extends Thread {
     }
 
     private void obstacleDeleter(ArrayList<Pipe> pipes){
-        for(Pipe p : pipes){
-            if(p.getPosition().getX() < 0) pipes.remove(p);
-        }
+        pipes.removeIf(p -> p.getPosition().getX() < 0);
     }
 
     private void obstacleSpawner( ArrayList<Pipe> pipes, Position pos, ArrayList<ScoreTrigger> scoreTriggers){
