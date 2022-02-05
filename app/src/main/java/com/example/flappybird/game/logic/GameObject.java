@@ -1,4 +1,4 @@
-package com.example.flappybird.gamelogic;
+package com.example.flappybird.game.logic;
 
 public abstract class GameObject {
     private Position position;

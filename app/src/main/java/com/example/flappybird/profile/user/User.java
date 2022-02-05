@@ -1,8 +1,8 @@
-package com.example.flappybird.profile.data;
+package com.example.flappybird.profile.user;
+//René Beiermann
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "User")

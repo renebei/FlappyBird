@@ -1,28 +1,35 @@
-package com.example.flappybird.gamelogic;
+package com.example.flappybird.game.logic;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.util.Log;
-import android.view.WindowManager;
 
 import androidx.annotation.RequiresApi;
 
-import java.lang.reflect.Array;
+import com.example.flappybird.game.GameActivity;
+import com.example.flappybird.game.objects.Pipe;
+import com.example.flappybird.game.objects.Player;
+import com.example.flappybird.profile.data.DatabaseAdapter;
+
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Game extends Thread{
+public class Game extends Thread {
     public static final float GRAVIATION = 1500.f;
     public static final float SPEED = -300.f;
-    private com.example.flappybird.Game game;
+    private GameActivity gameActivity;
     private Player player = new Player(new Position(100f,10f), 40f);
 
-    public Game(com.example.flappybird.Game game){
-        this.game = game;
+    //René Beiermann
+    private DatabaseAdapter dataAdapter;
+
+    public Game(GameActivity gameActivity){
+        this.gameActivity = gameActivity;
+        this.dataAdapter = new DatabaseAdapter(this.gameActivity.getApplication());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -43,7 +50,6 @@ public class Game extends Thread{
         float spawnRate = 2.f;
         float currentSpawnRate = 0;
         while(true) {
-
             int frameTimeNano = LocalDateTime.now().getNano() -  frameTimeStartNano; // How this wrong
             if(frameTimeNano < 0) frameTimeNano += 1000000000;
 
@@ -75,6 +81,14 @@ public class Game extends Thread{
             //obstacleDeleter(pipes);
             checkCollision(pipes, player, scoreTriggers);
             drawAll(player, pipes);
+
+            //René Beiermann
+            if (player.isDead()) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                LocalDateTime now = LocalDateTime.now();
+                dataAdapter.addAttempt(player.getScore(), dtf.format(now));
+                return;
+            }
         }
     }
 
@@ -119,8 +133,7 @@ public class Game extends Thread{
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
 
-        canvas.drawRect(0,0,game.getPhoneSize().x, game.getPhoneSize().y, paint);
-
+        canvas.drawRect(0,0, gameActivity.getPhoneSize().x, gameActivity.getPhoneSize().y, paint);
     }
 
     private void drawPlayer(Player player, Canvas canvas){
@@ -142,8 +155,8 @@ public class Game extends Thread{
     private void drawAll(Player player, ArrayList<Pipe> pipes){
         Canvas canvas = null;
         try {
-            canvas = game.getHolder().lockCanvas();
-            synchronized (game.getHolder()) {
+            canvas = gameActivity.getHolder().lockCanvas();
+            synchronized (gameActivity.getHolder()) {
                 if(canvas != null) {
                     drawBackGround(canvas);
                     drawPipes(pipes, canvas);
@@ -155,7 +168,7 @@ public class Game extends Thread{
         }
         finally {
             if (canvas != null) {
-                game.getHolder().unlockCanvasAndPost(canvas);
+                gameActivity.getHolder().unlockCanvasAndPost(canvas);
             }
         }
     }

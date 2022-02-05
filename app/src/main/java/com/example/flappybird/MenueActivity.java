@@ -1,4 +1,5 @@
 package com.example.flappybird;
+//René Beiermann
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,11 +13,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.example.flappybird.gamelogic.Game;
+import com.example.flappybird.game.GameActivity;
+import com.example.flappybird.profile.history.History;
 import com.example.flappybird.profile.ProfileActivity;
 import com.example.flappybird.profile.data.DatabaseAdapter;
-import com.example.flappybird.profile.data.User;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class MenueActivity extends AppCompatActivity {
@@ -25,6 +27,7 @@ public class MenueActivity extends AppCompatActivity {
     private ImageView profileButton;
     private DatabaseAdapter SQLadapter;
     private Handler handler;
+    private Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,13 @@ public class MenueActivity extends AppCompatActivity {
 
         this.SQLadapter = new DatabaseAdapter(this.getApplication());
         this.handler = new Handler(Looper.getMainLooper());
-
+        thread = Thread.currentThread();
+        Log.e("test thread 1", String.valueOf(thread.getId()));
         test();
+
+        List<History> history = SQLadapter.getHistory();
+
+        if (history.size() > 0) Log.e("TAG", history.get(0).getDate());
     }
 
     //should work
@@ -47,6 +55,7 @@ public class MenueActivity extends AppCompatActivity {
         CompletableFuture<String> username = SQLadapter.getUsername();
         CompletableFuture<Void> voidCompletableFuture = username.thenAccept((user) -> {
             MenueActivity.this.handler.post(() -> {
+                Log.e("test thread 2", String.valueOf(thread.getId()));
                 if(user != null) Log.e("hallo", user.toString());
             });
         });
@@ -56,8 +65,8 @@ public class MenueActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenueActivity.this, Game.class);
-
+                Intent intent = new Intent(MenueActivity.this, GameActivity.class);
+                startActivity(intent);
                 Log.e("Play", "Here Intent to Game");
             }
         });

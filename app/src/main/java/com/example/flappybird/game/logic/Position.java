@@ -1,4 +1,4 @@
-package com.example.flappybird.gamelogic;
+package com.example.flappybird.game.logic;
 
 public class Position {
     private float x;

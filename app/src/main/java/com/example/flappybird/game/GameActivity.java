@@ -1,24 +1,24 @@
-package com.example.flappybird;
+package com.example.flappybird.game;
 
-import android.content.Intent;
 import android.graphics.Point;
-import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
+import com.example.flappybird.R;
+import com.example.flappybird.game.logic.Game;
 
-public class Game extends AppCompatActivity {
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
+public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        com.example.flappybird.gamelogic.Game game = new com.example.flappybird.gamelogic.Game(this);
+        Game game = new Game(this);
         Thread thread = new Thread(game);
         thread.start();
 

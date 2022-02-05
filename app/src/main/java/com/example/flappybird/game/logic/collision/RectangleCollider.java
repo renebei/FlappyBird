@@ -1,6 +1,8 @@
-package com.example.flappybird.gamelogic;
+package com.example.flappybird.game.logic.collision;
 
-public class RectangleCollider implements Collider{
+import com.example.flappybird.game.logic.Position;
+
+public class RectangleCollider implements Collider {
 
     private Position position;
     private float width;

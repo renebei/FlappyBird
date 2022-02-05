@@ -1,6 +1,6 @@
-package com.example.flappybird.gamelogic;
+package com.example.flappybird.game.logic.collision;
 
-import android.util.Log;
+import com.example.flappybird.game.logic.Position;
 
 public class CircleCollider implements Collider {
     private final float radius;

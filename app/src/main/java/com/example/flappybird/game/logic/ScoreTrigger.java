@@ -1,4 +1,6 @@
-package com.example.flappybird.gamelogic;
+package com.example.flappybird.game.logic;
+
+import com.example.flappybird.game.logic.collision.RectangleCollider;
 
 public class ScoreTrigger extends GameObject {
     private float width;

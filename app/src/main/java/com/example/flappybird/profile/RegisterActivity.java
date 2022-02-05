@@ -1,4 +1,5 @@
 package com.example.flappybird.profile;
+//René Beiermann
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,22 +11,22 @@ import android.widget.EditText;
 
 import com.example.flappybird.MenueActivity;
 import com.example.flappybird.R;
-import com.example.flappybird.profile.data.User;
-import com.example.flappybird.profile.data.UserDao;
-import com.example.flappybird.profile.data.UserDatabase;
+import com.example.flappybird.profile.user.User;
+import com.example.flappybird.profile.user.UserDao;
+import com.example.flappybird.profile.data.GameDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText editText;
     private Button btn;
     private UserDao UDao;
-    private UserDatabase Udb;
+    private GameDatabase Udb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
-        Udb = UserDatabase.getInstance(this);
+        Udb = GameDatabase.getInstance(this);
         UDao = Udb.UserDao();
         editText = findViewById(R.id.chooseName);
         btn = findViewById(R.id.submit);

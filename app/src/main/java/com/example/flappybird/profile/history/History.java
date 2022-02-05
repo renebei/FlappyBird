@@ -1,4 +1,5 @@
-package com.example.flappybird.history;
+package com.example.flappybird.profile.history;
+//René Beiermann
 
 
 import androidx.room.ColumnInfo;
@@ -16,9 +17,9 @@ public class History {
 
         //will be some sort of datatype to display hours and minutes soon.
         @ColumnInfo(name="history_date")
-        private int date;
+        private String date;
 
-        public History(int score, int date) {
+        public History(int score, String date) {
             this.score = score;
             this.date = date;
         }
@@ -40,11 +41,11 @@ public class History {
                 this.score = score;
         }
 
-        public int getDate() {
+        public String getDate() {
                 return date;
         }
 
-        public void setDate(int date) {
+        public void setDate(String date) {
                 this.date = date;
         }
 }

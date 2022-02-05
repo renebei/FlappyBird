@@ -1,6 +1,11 @@
-package com.example.flappybird.gamelogic;
+package com.example.flappybird.game.objects;
 
-public class Pipe extends GameObject{
+import com.example.flappybird.game.logic.Game;
+import com.example.flappybird.game.logic.GameObject;
+import com.example.flappybird.game.logic.Position;
+import com.example.flappybird.game.logic.collision.RectangleCollider;
+
+public class Pipe extends GameObject {
     private float width;
     private float height;
 

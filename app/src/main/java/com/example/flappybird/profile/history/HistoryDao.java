@@ -1,5 +1,5 @@
-package com.example.flappybird.history;
-
+package com.example.flappybird.profile.history;
+//René Beiermann
 
 import static androidx.room.OnConflictStrategy.REPLACE;
 
@@ -9,7 +9,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -23,6 +22,6 @@ public interface HistoryDao {
     @Update
     void update(History history);
 
-    @Query("SELECT * FROM history limit 10")
+    @Query("SELECT * FROM History limit 10")
     List<History> getLastTenMatches();
 }
