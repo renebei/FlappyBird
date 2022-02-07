@@ -38,7 +38,7 @@ public class ProfileModel {
                 field.setX(200);
                 field.setY((30*i)+200);
                 field.setTextSize(22);
-                field.setBackgroundColor(Color.WHITE);
+                field.setTextColor(Color.WHITE);
                 field.setText(s.get(i).getDate() + " / Score: " + s.get(i).getScore() + "\n");
                 gridLayout.addView(field);
             }
@@ -52,17 +52,26 @@ public class ProfileModel {
             Log.e("external Thread", "Games Played" + games);
            TextView field = activity.findViewById(R.id.gamesPlayed);
            field.setText("Games Played: " + games);
-           field.setBackgroundColor(Color.WHITE);
+           field.setTextColor(Color.WHITE);
         });
     }
 
     protected void displayUser() {
         CompletableFuture<String> gamesPlayed = this.repo.getUsername();
         gamesPlayed.thenAccept((String user) -> {
-            Log.e("external Thread", "User" + user);
             TextView field = activity.findViewById(R.id.displayUser);
-            field.setText("User: " + user);
-            field.setBackgroundColor(Color.WHITE);
+            field.setText(user);
+            field.setTextSize(34);
+            field.setTextColor(Color.WHITE);
+        });
+    }
+
+    protected void displayHighscore() {
+        CompletableFuture<Integer> gamesPlayed = this.repo.getHighscore();
+        gamesPlayed.thenAccept((Integer highscore) -> {
+            TextView field = activity.findViewById(R.id.highscore);
+            field.setText("Highscore: " + highscore);
+            field.setTextColor(Color.WHITE);
         });
     }
 

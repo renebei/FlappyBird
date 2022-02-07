@@ -20,12 +20,17 @@ public interface UserDao {
         @Update
         void update(User user);
 
-        //Here SQL Queries
         @Query("SELECT user_name FROM User limit 1")
         String getUsername();
 
         @Query("SELECT user_id FROM User limit 1")
         int getID();
+
+        @Query("UPDATE User SET user_highscore = :score WHERE user_highscore < :score and user_name = :username")
+        void checkHighscore(int score, String username);
+
+        @Query("SELECT user_highscore FROM User WHERE user_name = :username")
+        int getHighscore(String username);
 
         @Query("SELECT * FROM User WHERE user_name = :Username")
         User getComparedUsername(String Username);

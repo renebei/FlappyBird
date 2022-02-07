@@ -4,6 +4,7 @@ package com.example.flappybird.profile.history;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Attempts")
@@ -12,9 +13,9 @@ public class Attempt {
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name="history_id")
         private int id;
+
         @ColumnInfo(name="history_score")
         private int score;
-
         //will be some sort of datatype to display hours and minutes soon.
         @ColumnInfo(name="history_date")
         private String date;

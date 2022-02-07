@@ -87,6 +87,7 @@ public class Game extends Thread {
                 LocalDateTime now = LocalDateTime.now();
                 dataAdapter.addAttempt(player.getScore(), dtf.format(now));
                 dataAdapter.incrementGamesPlayed();
+                dataAdapter.updateHighscore(player.getScore());
                 return;
             }
         }

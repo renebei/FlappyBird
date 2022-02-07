@@ -56,13 +56,25 @@ public class DatabaseRepository {
         return CompletableFuture.supplyAsync(() -> {
             UserDao.UpdateGamesPlayed(UserDao.getUsername());
             return null;
-        });
+        }, GameDatabase.databaseWriterExecutorService);
     }
 
     public CompletableFuture<Integer> getGamesPlayed() {
         return CompletableFuture.supplyAsync(() -> {
-            int games = UserDao.getGamesPlayed();
-            return games;
-        });
+            return UserDao.getGamesPlayed();
+        }, GameDatabase.databaseWriterExecutorService);
+    }
+
+    public CompletableFuture<Integer> getHighscore() {
+        return CompletableFuture.supplyAsync(() -> {
+           return UserDao.getHighscore(UserDao.getUsername());
+        }, GameDatabase.databaseWriterExecutorService);
+    }
+
+    public CompletableFuture<Void> updateHighscore(int score) {
+        return CompletableFuture.supplyAsync(() -> {
+            UserDao.checkHighscore(score, UserDao.getUsername());
+            return null;
+        }, GameDatabase.databaseWriterExecutorService);
     }
 }

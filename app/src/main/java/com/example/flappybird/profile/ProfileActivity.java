@@ -31,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
         model.matchHistory();
         model.displayGamesPlayed();
         model.displayUser();
+        model.displayHighscore();
         buttonPressed();
     }
 

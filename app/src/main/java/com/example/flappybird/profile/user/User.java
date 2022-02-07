@@ -12,7 +12,7 @@ public class User {
     private int id;
     @ColumnInfo(name="user_name")
     private String name;
-    @ColumnInfo(name="user_score")
+    @ColumnInfo(name="user_highscore")
     private int highscore;
     @ColumnInfo(name="user_gamesPlayed")
     private int gamesPlayed;
