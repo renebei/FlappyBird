@@ -14,17 +14,28 @@ public class User {
     private String name;
     @ColumnInfo(name="user_score")
     private int highscore;
+    @ColumnInfo(name="user_gamesPlayed")
+    private int gamesPlayed;
 
     //will be some sort of datatype to display hours and minutes soon.
     @ColumnInfo(name="user_playtime")
     private int time;
 
     public User(String name) {
+        this.gamesPlayed = 0;
         this.name = name;
     }
 
-
     //Getter and Setter for Room.
+
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    public void setGamesPlayed(int gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
+    }
+
     public int getId() {
         return id;
     }

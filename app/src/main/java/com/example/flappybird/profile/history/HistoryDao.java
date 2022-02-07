@@ -22,6 +22,6 @@ public interface HistoryDao {
     @Update
     void update(Attempt attempt);
 
-    @Query("SELECT * FROM Attempts")
-    List<Attempt> getLastTenMatches();
+    @Query("SELECT * FROM Attempts limit 5")
+    List<Attempt> getLastFiveMatches();
 }

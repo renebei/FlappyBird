@@ -29,4 +29,10 @@ public interface UserDao {
 
         @Query("SELECT * FROM User WHERE user_name = :Username")
         User getComparedUsername(String Username);
+
+        @Query("UPDATE User SET user_gamesPlayed = user_gamesPlayed + 1 WHERE user_name = :Username")
+        void UpdateGamesPlayed(String Username);
+
+        @Query("SELECT user_gamesPlayed from User limit 1")
+        int getGamesPlayed();
 }

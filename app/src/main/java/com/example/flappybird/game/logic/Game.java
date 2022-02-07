@@ -86,6 +86,7 @@ public class Game extends Thread {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
                 LocalDateTime now = LocalDateTime.now();
                 dataAdapter.addAttempt(player.getScore(), dtf.format(now));
+                dataAdapter.incrementGamesPlayed();
                 return;
             }
         }

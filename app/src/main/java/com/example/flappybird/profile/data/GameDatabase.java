@@ -15,7 +15,7 @@ import com.example.flappybird.profile.history.HistoryDao;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Attempt.class}, version = 2, exportSchema = false)
+@Database(entities = {User.class, Attempt.class}, version = 1, exportSchema = false)
 public abstract class GameDatabase extends RoomDatabase {
 
     private static volatile GameDatabase database;

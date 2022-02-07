@@ -21,7 +21,6 @@ public class ProfileModel {
 
     private DatabaseRepository repo;
     private ProfileActivity activity;
-    private TextView a, b, c;
 
     public ProfileModel(ProfileActivity activity) {
         this.activity = activity;
@@ -32,9 +31,9 @@ public class ProfileModel {
         CompletableFuture<List<Attempt>> history = this.repo.getHistory();
         history.thenAccept((List<Attempt> s) -> {
             int id = 0;
+            Log.e("external Thread", String.valueOf(s.size()));
             GridLayout gridLayout = (GridLayout) activity.findViewById(R.id.grid);
-            int size = s.size();
-            for (int i = 0; i < size; i++) {
+            for (int i = s.size()-1; i >= 0; i--) {
                 TextView field = new TextView(activity);
                 field.setX(200);
                 field.setY((30*i)+200);
@@ -47,6 +46,26 @@ public class ProfileModel {
         });
     }
 
+    protected void displayGamesPlayed() {
+        CompletableFuture<Integer> gamesPlayed = this.repo.getGamesPlayed();
+        gamesPlayed.thenAccept((Integer games) -> {
+            Log.e("external Thread", "Games Played" + games);
+           TextView field = activity.findViewById(R.id.gamesPlayed);
+           field.setText("Games Played: " + games);
+           field.setBackgroundColor(Color.WHITE);
+        });
+    }
+
+    protected void displayUser() {
+        CompletableFuture<String> gamesPlayed = this.repo.getUsername();
+        gamesPlayed.thenAccept((String user) -> {
+            Log.e("external Thread", "User" + user);
+            TextView field = activity.findViewById(R.id.displayUser);
+            field.setText("User: " + user);
+            field.setBackgroundColor(Color.WHITE);
+        });
+    }
+
     protected void checkForRegisteredUser() {
         CompletableFuture<String> history = this.repo.getUsername();
         history.thenAccept((username) -> {
@@ -54,4 +73,6 @@ public class ProfileModel {
                 activity.startActivity(new Intent(activity, RegisterActivity.class));
         });
     }
+
+
 }

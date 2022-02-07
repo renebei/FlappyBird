@@ -29,6 +29,8 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         this.backToHome = findViewById(R.id.profileToHome);
         model.matchHistory();
+        model.displayGamesPlayed();
+        model.displayUser();
         buttonPressed();
     }
 

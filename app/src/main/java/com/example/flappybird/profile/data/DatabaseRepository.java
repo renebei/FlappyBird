@@ -47,8 +47,22 @@ public class DatabaseRepository {
 
     public CompletableFuture<List<Attempt>> getHistory() {
         return CompletableFuture.supplyAsync(() ->{
-            List<Attempt> attempt = HistoryDao.getLastTenMatches();
+            List<Attempt> attempt = HistoryDao.getLastFiveMatches();
             return attempt;
         }, GameDatabase.databaseWriterExecutorService);
+    }
+
+    public CompletableFuture<Void> incrementGamesPlayed() {
+        return CompletableFuture.supplyAsync(() -> {
+            UserDao.UpdateGamesPlayed(UserDao.getUsername());
+            return null;
+        });
+    }
+
+    public CompletableFuture<Integer> getGamesPlayed() {
+        return CompletableFuture.supplyAsync(() -> {
+            int games = UserDao.getGamesPlayed();
+            return games;
+        });
     }
 }
