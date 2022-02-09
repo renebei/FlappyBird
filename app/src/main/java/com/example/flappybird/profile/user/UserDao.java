@@ -20,7 +20,7 @@ public interface UserDao {
         @Update
         void update(User user);
 
-        @Query("SELECT user_name FROM User limit 1")
+        @Query("SELECT user_name FROM User")
         String getUsername();
 
         @Query("SELECT user_id FROM User limit 1")

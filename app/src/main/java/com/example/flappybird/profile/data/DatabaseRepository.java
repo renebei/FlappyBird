@@ -19,7 +19,6 @@ public class DatabaseRepository {
         GameDatabase Udb = GameDatabase.getInstance(application);
         this.UserDao = Udb.UserDao();
         this.HistoryDao = Udb.HistoryDao();
-
     }
 
     public CompletableFuture<User> insertUsername(final String username) {
@@ -37,11 +36,11 @@ public class DatabaseRepository {
         }, GameDatabase.databaseWriterExecutorService);
     }
 
-    public CompletableFuture<Attempt> addAttempt(int score, String dateTime) {
+    public CompletableFuture<Void> addAttempt(int id, int score, String dateTime) {
         return CompletableFuture.supplyAsync(() ->{
-            Attempt attempt = new Attempt(score, dateTime);
+            Attempt attempt = new Attempt(id, score, dateTime);
             this.HistoryDao.insert(attempt);
-            return attempt;
+            return null;
         }, GameDatabase.databaseWriterExecutorService);
     }
 
@@ -75,6 +74,12 @@ public class DatabaseRepository {
         return CompletableFuture.supplyAsync(() -> {
             UserDao.checkHighscore(score, UserDao.getUsername());
             return null;
+        }, GameDatabase.databaseWriterExecutorService);
+    }
+
+    public CompletableFuture<Integer> getID() {
+        return  CompletableFuture.supplyAsync(() -> {
+            return UserDao.getID();
         }, GameDatabase.databaseWriterExecutorService);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.flappybird.game.logic;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,6 +10,7 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.flappybird.R;
 import com.example.flappybird.game.GameActivity;
 import com.example.flappybird.game.objects.Pipe;
 import com.example.flappybird.game.objects.Player;
@@ -83,9 +86,9 @@ public class Game extends Thread {
 
             //René Beiermann
             if (player.isDead()) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm:ss");
                 LocalDateTime now = LocalDateTime.now();
-                dataAdapter.addAttempt(player.getScore(), dtf.format(now));
+                dataAdapter.addAttempt(0, player.getScore(), dtf.format(now));
                 dataAdapter.incrementGamesPlayed();
                 dataAdapter.updateHighscore(player.getScore());
                 return;
@@ -133,13 +136,16 @@ public class Game extends Thread {
         paint.setColor(Color.BLACK);
 
         canvas.drawRect(0,0, gameActivity.getPhoneSize().x, gameActivity.getPhoneSize().y, paint);
+
     }
 
     private void drawPlayer(Player player, Canvas canvas){
         Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
-
+        paint.setColor(Color.WHITE);
         canvas.drawCircle(player.getPosition().getX(), player.getPosition().getY(), player.getRadius(), paint);
+
+        //Bitmap playerBitmap = BitmapFactory.decodeResource(gameActivity.getResources(), R.drawable.oracle);
+        //canvas.drawBitmap(playerBitmap, player.getPosition().getX()-62, player.getPosition().getY()-38, paint);
     }
 
     private void drawPipes(ArrayList<Pipe> pipes, Canvas canvas){
@@ -174,5 +180,9 @@ public class Game extends Thread {
 
     public void jump(){
         player.jump();
+    }
+
+    public Player getPlayer() {
+        return this.player;
     }
 }

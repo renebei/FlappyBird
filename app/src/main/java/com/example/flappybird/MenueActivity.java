@@ -14,7 +14,10 @@ import android.widget.ImageView;
 
 import com.example.flappybird.game.GameActivity;
 import com.example.flappybird.profile.ProfileActivity;
+import com.example.flappybird.profile.RegisterActivity;
 import com.example.flappybird.profile.data.DatabaseRepository;
+
+import java.util.concurrent.CompletableFuture;
 
 public class MenueActivity extends AppCompatActivity {
 
@@ -24,12 +27,13 @@ public class MenueActivity extends AppCompatActivity {
     private Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.repo = new DatabaseRepository(this.getApplication());
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_activtiy);
 
-        this.repo = new DatabaseRepository(this.getApplication());
+
         this.playButton = findViewById(R.id.playbutton);
         this.profileButton = findViewById(R.id.profilebutton);
 
@@ -40,14 +44,24 @@ public class MenueActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                checkForRegisteredUser();
                 startActivity(new Intent(MenueActivity.this, GameActivity.class));
             }
         });
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                checkForRegisteredUser();
                 startActivity(new Intent(MenueActivity.this, ProfileActivity.class));
             }
+        });
+    }
+
+    private void checkForRegisteredUser() {
+        CompletableFuture<String> history = this.repo.getUsername();
+        history.thenAccept((username) -> {
+            if (username == null)
+                startActivity(new Intent(MenueActivity.this, RegisterActivity.class));
         });
     }
 }

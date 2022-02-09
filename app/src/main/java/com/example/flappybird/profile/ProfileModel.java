@@ -3,7 +3,9 @@ package com.example.flappybird.profile;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
@@ -33,13 +35,15 @@ public class ProfileModel {
             int id = 0;
             Log.e("external Thread", String.valueOf(s.size()));
             GridLayout gridLayout = (GridLayout) activity.findViewById(R.id.grid);
-            for (int i = s.size()-1; i >= 0; i--) {
+            for (int i = 0; i < 5; i++) {
                 TextView field = new TextView(activity);
-                field.setX(200);
+                field.setX(350);
                 field.setY((30*i)+200);
-                field.setTextSize(22);
+                field.setTextSize(18);
+                field.setTypeface(Typeface.MONOSPACE);
+                field.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 field.setTextColor(Color.WHITE);
-                field.setText(s.get(i).getDate() + " / Score: " + s.get(i).getScore() + "\n");
+                field.setText(s.get((s.size()-1)-i).getDate() + " / Score: " + s.get((s.size()-1)-i).getScore() + "\n");
                 gridLayout.addView(field);
             }
             s.forEach(attempt -> Log.e("Logging History", attempt.getDate()));
@@ -49,7 +53,6 @@ public class ProfileModel {
     protected void displayGamesPlayed() {
         CompletableFuture<Integer> gamesPlayed = this.repo.getGamesPlayed();
         gamesPlayed.thenAccept((Integer games) -> {
-            Log.e("external Thread", "Games Played" + games);
            TextView field = activity.findViewById(R.id.gamesPlayed);
            field.setText("Games Played: " + games);
            field.setTextColor(Color.WHITE);
@@ -62,6 +65,7 @@ public class ProfileModel {
             TextView field = activity.findViewById(R.id.displayUser);
             field.setText(user);
             field.setTextSize(34);
+            field.setShadowLayer(2, 1, 1, Color.RED);
             field.setTextColor(Color.WHITE);
         });
     }
@@ -74,14 +78,4 @@ public class ProfileModel {
             field.setTextColor(Color.WHITE);
         });
     }
-
-    protected void checkForRegisteredUser() {
-        CompletableFuture<String> history = this.repo.getUsername();
-        history.thenAccept((username) -> {
-            if (username == null)
-                activity.startActivity(new Intent(activity, RegisterActivity.class));
-        });
-    }
-
-
 }

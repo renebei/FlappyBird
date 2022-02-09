@@ -12,8 +12,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="title_activity_game">Game</string>
-    <string name="games_played">Anzahl Spiele:</string>
-    <string name="highscore">Bestleistung:</string>
+    <string name="games_played">Games Played:</string>
+    <string name="highscore">Highscore:</string>
 
 
 </resources>

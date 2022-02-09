@@ -11,13 +11,12 @@
         android:theme="@style/Theme.FlappyBird">
         <activity
             android:name=".profile.RegisterActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".profile.ProfileActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" />
-
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MenueActivity"
             android:exported="true"
@@ -30,9 +29,8 @@
         </activity>
         <activity
             android:name=".game.GameActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false">
-        </activity>
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

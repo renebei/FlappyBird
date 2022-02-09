@@ -25,7 +25,6 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.model = new ProfileModel(this);
-        model.checkForRegisteredUser();
         setContentView(R.layout.activity_profile);
         this.backToHome = findViewById(R.id.profileToHome);
         model.matchHistory();
