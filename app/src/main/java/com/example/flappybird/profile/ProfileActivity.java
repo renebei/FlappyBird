@@ -1,5 +1,4 @@
 package com.example.flappybird.profile;
-//René Beiermann
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +16,10 @@ import android.widget.Button;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * @author René Beiermann
+ * <p>Diese Activity verwaltet über das Profilmodel die Oberfläche des Nutzerprofil.</p>
+ */
 public class ProfileActivity extends AppCompatActivity {
 
     private ProfileModel model;
@@ -27,11 +30,19 @@ public class ProfileActivity extends AppCompatActivity {
         this.model = new ProfileModel(this);
         setContentView(R.layout.activity_profile);
         this.backToHome = findViewById(R.id.profileToHome);
+        displayUserprofile();
+        buttonPressed();
+
+    }
+
+    /**
+     * @see ProfileModel
+     */
+    private void displayUserprofile() {
         model.matchHistory();
         model.displayGamesPlayed();
         model.displayUser();
         model.displayHighscore();
-        buttonPressed();
     }
 
     private void buttonPressed() {

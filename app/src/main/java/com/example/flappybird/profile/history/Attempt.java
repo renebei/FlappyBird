@@ -1,6 +1,4 @@
 package com.example.flappybird.profile.history;
-//René Beiermann
-
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -9,10 +7,12 @@ import androidx.room.PrimaryKey;
 
 import com.example.flappybird.profile.user.User;
 
+/**
+ * @author René Beiermann
+ * Attempt Obejekt und Entität
+ */
 @Entity(tableName = "Attempts")
 public class Attempt {
-// foreignKeys = {@ForeignKey(entity = User.class, parentColumns = "user_id", childColumns = "attempt_user_id", onDelete = ForeignKey.CASCADE)}
-
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "attempt_id")
@@ -27,15 +27,19 @@ public class Attempt {
     @ColumnInfo(name = "attempt_user_id")
     private int userId;
 
-
-    public Attempt(int id, int score, String date) {
+    /**
+     * @param score Anzahl ausgewichener Hindernisse
+     * @param date  Zeitpunkt des Spielende.
+     */
+    public Attempt(int score, String date) {
         this.score = score;
         this.date = date;
         this.id = id;
     }
 
-    //Getter and Setter for Room
-
+    /**
+     * Getter und Setter die Room benötigt um über die Objekte zu verwalten.
+     */
     public int getUserId() {
         return userId;
     }

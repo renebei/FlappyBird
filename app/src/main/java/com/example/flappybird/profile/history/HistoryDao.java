@@ -1,5 +1,4 @@
 package com.example.flappybird.profile.history;
-//René Beiermann
 
 import static androidx.room.OnConflictStrategy.REPLACE;
 
@@ -11,6 +10,10 @@ import androidx.room.Update;
 
 import java.util.List;
 
+/**
+ * @author René Beiermann
+ * <p>Dieses "data access object" verwaltet die Entität der Versuche.</p>
+ */
 @Dao
 public interface HistoryDao {
     @Insert(onConflict = REPLACE)
@@ -23,5 +26,5 @@ public interface HistoryDao {
     void update(Attempt attempt);
 
     @Query("SELECT * FROM Attempts")
-    List<Attempt> getLastFiveMatches();
+    List<Attempt> getHistory();
 }

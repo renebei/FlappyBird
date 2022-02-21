@@ -42,7 +42,7 @@
         android:layout_marginStart="176dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="177dp"
-        android:text="Welcome \nEnter a Name"
+        android:text="Enter a Name"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="30sp"

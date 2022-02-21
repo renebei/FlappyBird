@@ -1,5 +1,4 @@
 package com.example.flappybird.profile.data;
-//René Beiermann
 
 import android.content.Context;
 
@@ -15,6 +14,10 @@ import com.example.flappybird.profile.history.HistoryDao;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * @author René Beiermann
+ * <p>Room Datenbank</p>
+ */
 @Database(entities = {User.class, Attempt.class}, version = 1, exportSchema = false)
 public abstract class GameDatabase extends RoomDatabase {
 

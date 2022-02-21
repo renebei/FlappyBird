@@ -1,5 +1,10 @@
+/**
+ * @author René Beiermann
+ * User Obejekt und Entität
+ */
+
 package com.example.flappybird.profile.user;
-//René Beiermann
+
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

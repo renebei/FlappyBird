@@ -1,5 +1,4 @@
 package com.example.flappybird;
-//René Beiermann
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +18,12 @@ import com.example.flappybird.profile.data.DatabaseRepository;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * @author René Beiermann
+ * Launcher Activity der App.
+ * Diese Acitivity verwaltet das Menü.
+ * Leitet den Nutzer zur Registierung wenn er nicht bereits registriert ist.
+ */
 public class MenueActivity extends AppCompatActivity {
 
     private ImageView playButton;
@@ -40,6 +45,9 @@ public class MenueActivity extends AppCompatActivity {
         buttonClicks();
     }
 
+    /**
+     * On Click Listener für die Buttons
+     */
     private void buttonClicks() {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +65,10 @@ public class MenueActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Wenn der Nutzer nicht registriert ist wird dieser in die RegistierActivity geführt.
+     * @see RegisterActivity
+     */
     private void checkForRegisteredUser() {
         CompletableFuture<String> history = this.repo.getUsername();
         history.thenAccept((username) -> {

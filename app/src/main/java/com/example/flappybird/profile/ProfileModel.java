@@ -1,4 +1,3 @@
-//René Beiermann
 package com.example.flappybird.profile;
 
 import android.content.Intent;
@@ -19,16 +18,28 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * @author René Beiermann
+ * <p>Diese Klasse beinhaltet alle nötigen Abläufe und Methoden um die Nutzerübersicht zu realisieren.</p>
+ */
 public class ProfileModel {
 
     private DatabaseRepository repo;
     private ProfileActivity activity;
 
+    /**
+     * @param activity Nimmt Profile Activity um auf die ID zugreifen zu können.
+     */
     public ProfileModel(ProfileActivity activity) {
         this.activity = activity;
         this.repo = new DatabaseRepository(activity.getApplication());
     }
 
+    /**
+     * Übersicht über die zuletzt gespielten Spiele generieren.
+     * Eine Schleife über die letzten 5 gespielten Spiele.
+     * Diese als TextView anzeigen.
+     */
     protected void matchHistory() {
         CompletableFuture<List<Attempt>> history = this.repo.getHistory();
         history.thenAccept((List<Attempt> s) -> {
@@ -50,6 +61,9 @@ public class ProfileModel {
         });
     }
 
+    /**
+     * Generiert die Anzahl der gespielten Spiele und trägt sie in die TextView mit der passenden ID.
+     */
     protected void displayGamesPlayed() {
         CompletableFuture<Integer> gamesPlayed = this.repo.getGamesPlayed();
         gamesPlayed.thenAccept((Integer games) -> {
@@ -59,6 +73,9 @@ public class ProfileModel {
         });
     }
 
+    /**
+     * Generiert den Namen des Nutzer und trägt diesen in die TextView mit der passenden ID.
+     */
     protected void displayUser() {
         CompletableFuture<String> gamesPlayed = this.repo.getUsername();
         gamesPlayed.thenAccept((String user) -> {
@@ -70,6 +87,9 @@ public class ProfileModel {
         });
     }
 
+    /**
+     * Generiert den Highscore des Nutzer und trägt diesen in die TextView mit der passenden ID.
+     */
     protected void displayHighscore() {
         CompletableFuture<Integer> gamesPlayed = this.repo.getHighscore();
         gamesPlayed.thenAccept((Integer highscore) -> {

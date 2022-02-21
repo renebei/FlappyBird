@@ -1,3 +1,8 @@
+/**
+ * @author David Siegbert, René Beiermann
+ * Datenbanken Repository für die Abfragen unserer Anwendung.
+ */
+
 package com.example.flappybird.game.logic;
 
 import android.graphics.Bitmap;
@@ -84,11 +89,14 @@ public class Game extends Thread {
             checkCollision(pipes, player, scoreTriggers);
             drawAll(player, pipes);
 
-            //René Beiermann
+            /**
+             * @author René Beiermann
+             * Sammelt Informationen über den Verlauf des Spielversuches und speichert Ihn in der Datenbank.
+             */
             if (player.isDead()) {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm:ss");
                 LocalDateTime now = LocalDateTime.now();
-                dataAdapter.addAttempt(0, player.getScore(), dtf.format(now));
+                dataAdapter.addAttempt(player.getScore(), dtf.format(now));
                 dataAdapter.incrementGamesPlayed();
                 dataAdapter.updateHighscore(player.getScore());
                 return;

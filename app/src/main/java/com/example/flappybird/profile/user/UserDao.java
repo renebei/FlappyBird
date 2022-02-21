@@ -1,5 +1,10 @@
+/**
+ * @author René Beiermann
+ * <p>Dieses "data access object" verwaltet die Entität der Nutzer.</p>
+ */
+
 package com.example.flappybird.profile.user;
-//René Beiermann
+
 
 import static androidx.room.OnConflictStrategy.REPLACE;
 
