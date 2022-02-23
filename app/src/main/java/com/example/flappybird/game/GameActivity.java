@@ -5,7 +5,6 @@ import android.graphics.Point;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -25,14 +24,11 @@ public class GameActivity extends AppCompatActivity {
         Thread thread = new Thread(game);
         thread.start();
 
-        findViewById(R.id.surfaceView).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!game.getPlayer().isDead())
-                    game.jump();
-                else
-                    startActivity(new Intent(GameActivity.this, MenueActivity.class));
-            }
+        findViewById(R.id.surfaceView).setOnClickListener(view -> {
+            if (!game.getPlayer().isDead())
+                game.jump();
+            else
+                startActivity(new Intent(GameActivity.this, MenueActivity.class));
         });
     }
 
