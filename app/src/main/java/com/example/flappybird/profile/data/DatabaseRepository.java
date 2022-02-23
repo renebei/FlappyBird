@@ -31,9 +31,8 @@ public class DatabaseRepository {
      * @param username Der Nutzername, der in die Datenbank eingetragen wird.
      */
     public CompletableFuture<Void> insertUsername(final String username) {
-        return CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.runAsync(() -> {
             this.UserDao.insert(new User(username));
-            return null;
         }, GameDatabase.databaseWriterExecutorService);
     }
 
@@ -52,10 +51,9 @@ public class DatabaseRepository {
      * @param time Localtime des Versuch formatiert als String.
      */
     public CompletableFuture<Void> addAttempt(int score, String time) {
-        return CompletableFuture.supplyAsync(() ->{
+        return CompletableFuture.runAsync(() ->{
             Attempt attempt = new Attempt(score, time);
             this.HistoryDao.insert(attempt);
-            return null;
         }, GameDatabase.databaseWriterExecutorService);
     }
 
@@ -73,9 +71,8 @@ public class DatabaseRepository {
      * Update Anzahl der gespielten Spiele.
      */
     public CompletableFuture<Void> incrementGamesPlayed() {
-        return CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.runAsync(() -> {
             UserDao.UpdateGamesPlayed(UserDao.getUsername());
-            return null;
         }, GameDatabase.databaseWriterExecutorService);
     }
 
@@ -101,9 +98,8 @@ public class DatabaseRepository {
      * @param score Wenn ein Spiel vorbei ist, übergib den Score und schau ob dieser der Höchste ist.
      */
     public CompletableFuture<Void> updateHighscore(int score) {
-        return CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.runAsync(() -> {
             UserDao.checkHighscore(score, UserDao.getUsername());
-            return null;
         }, GameDatabase.databaseWriterExecutorService);
     }
 }

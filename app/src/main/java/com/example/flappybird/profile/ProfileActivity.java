@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * @author René Beiermann
- * <p>Diese Activity verwaltet über das Profilmodel die Oberfläche des Nutzerprofil.</p>
+ * Diese Activity verwaltet über das Profilmodel die Oberfläche des Nutzerprofil.
  */
 public class ProfileActivity extends AppCompatActivity {
 
