@@ -1,23 +1,11 @@
-/**
- * @author David Siegbert, René Beiermann
- * Datenbanken Repository für die Abfragen unserer Anwendung.
- */
-
 package com.example.flappybird.game.logic;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 
 import androidx.annotation.RequiresApi;
-
-import com.example.flappybird.R;
 import com.example.flappybird.game.GameActivity;
 import com.example.flappybird.game.objects.Pipe;
 import com.example.flappybird.game.objects.Player;
@@ -28,6 +16,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * @author David Siegbert, René Beiermann
+ * Datenbanken Repository für die Abfragen unserer Anwendung.
+ */
+
 public class Game extends Thread {
     public static final float GRAVIATION = 1500.f;
     public static final float SPEED = -300.f;
@@ -36,11 +29,19 @@ public class Game extends Thread {
 
     private DatabaseRepository dataAdapter;
 
+    /**
+     * @author David Siegbert
+     * @param gameActivity the game activity that the canvas is on
+     */
     public Game(GameActivity gameActivity){
         this.gameActivity = gameActivity;
         this.dataAdapter = new DatabaseRepository(this.gameActivity.getApplication());
     }
 
+    /**
+     * @author David Siegbert
+     * runs the gameloop in a thread
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void run(){
         try {
@@ -50,11 +51,15 @@ public class Game extends Thread {
         }
     }
 
+    /**
+     * @author David Siegbert
+     * Runs the game in an infinite loop
+     * @throws InterruptedException triggered when thread error
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void GameLoop() throws InterruptedException {
         int frameTimeStartNano = LocalDateTime.now().getNano();
 
-        ArrayList<ScoreTrigger> scoreTriggers = new ArrayList<>();
         ObstacleManager obstacleManager = new ObstacleManager();
         float spawnRate = 2.f;
         float currentSpawnRate = 0;
@@ -109,7 +114,12 @@ public class Game extends Thread {
         }
     }
 
-    // canvas needs to be locked in this class
+    /**
+     * @author David Siegbert
+     * Threadsafe methode um die game Objekte zu malen
+     * @param player spieler der gemalt werden soll
+     * @param pipes list of pipes that need to be drawn
+     */
     private void drawAll(Player player, ArrayList<Pipe> pipes){
         Canvas canvas = null;
         try {
@@ -131,10 +141,19 @@ public class Game extends Thread {
         }
     }
 
+    /**
+     * @author David Siegbert
+     * Lässt den Spieler springen
+     */
     public void jump(){
         player.jump();
     }
 
+    /**
+     * @author David Siegbert
+     * Gibt den spieler zurück
+     * @return Der Spieler
+     */
     public Player getPlayer() {
         return this.player;
     }
