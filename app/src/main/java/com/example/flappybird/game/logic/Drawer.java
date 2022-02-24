@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public class Drawer {
     /**
+     * drawing the background
      * @param canvas Canvas auf dem gemalt werden soll
      * @param gameActivity Gameactivity wird für größe des Handys benutzt
      */
