@@ -29,6 +29,8 @@ public class UserStatistics {
 
     private DatabaseRepository repo;
     private ProfileActivity activity;
+    private float x;
+    private float y;
 
     /**
      * @param activity Nimmt Profile Activity um auf die ID zugreifen zu können.
@@ -36,6 +38,11 @@ public class UserStatistics {
     public UserStatistics(ProfileActivity activity) {
         this.activity = activity;
         this.repo = new DatabaseRepository(activity.getApplication());
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics ();
+        display.getMetrics(outMetrics);
+        this.y = outMetrics.heightPixels;
+        this.x = outMetrics.widthPixels;
     }
 
     /**
@@ -47,11 +54,6 @@ public class UserStatistics {
         CompletableFuture<List<Attempt>> history = this.repo.getHistory();
         history.thenAccept((List<Attempt> s) -> {
             int id = 0;
-            Display display = activity.getWindowManager().getDefaultDisplay();
-            DisplayMetrics outMetrics = new DisplayMetrics ();
-            display.getMetrics(outMetrics);
-            float y = outMetrics.heightPixels;
-            float x = outMetrics.widthPixels;
             GridLayout gridLayout = (GridLayout) activity.findViewById(R.id.grid);
             for (int i = 0; i < 5; i++) {
                 TextView field = new TextView(activity);
