@@ -22,12 +22,12 @@ import java.util.concurrent.CompletableFuture;
  */
 public class ProfileActivity extends AppCompatActivity {
 
-    private ProfileModel model;
+    private UserStatistics stats;
     private Button backToHome;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.model = new ProfileModel(this);
+        this.stats = new UserStatistics(this);
         setContentView(R.layout.activity_profile);
         this.backToHome = findViewById(R.id.profileToHome);
         displayUserprofile();
@@ -36,13 +36,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     /**
-     * @see ProfileModel
+     * @see UserStatistics
      */
     private void displayUserprofile() {
-        model.matchHistory();
-        model.displayGamesPlayed();
-        model.displayUser();
-        model.displayHighscore();
+        stats.matchHistory();
+        stats.displayGamesPlayed();
+        stats.displayUser();
+        stats.displayHighscore();
     }
 
     private void buttonPressed() {

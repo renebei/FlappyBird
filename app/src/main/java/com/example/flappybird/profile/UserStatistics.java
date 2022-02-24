@@ -20,9 +20,10 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author René Beiermann
- * <p>Diese Klasse beinhaltet alle nötigen Abläufe und Methoden um die Nutzerübersicht zu realisieren.</p>
+ * Diese Klasse beinhaltet alle nötigen Abläufe und Methoden um die Nutzerübersicht zu realisieren.
+ * Sie ist somit das ViewModel der ProfileActivity
  */
-public class ProfileModel {
+public class UserStatistics {
 
     private DatabaseRepository repo;
     private ProfileActivity activity;
@@ -30,7 +31,7 @@ public class ProfileModel {
     /**
      * @param activity Nimmt Profile Activity um auf die ID zugreifen zu können.
      */
-    public ProfileModel(ProfileActivity activity) {
+    public UserStatistics(ProfileActivity activity) {
         this.activity = activity;
         this.repo = new DatabaseRepository(activity.getApplication());
     }
@@ -44,7 +45,6 @@ public class ProfileModel {
         CompletableFuture<List<Attempt>> history = this.repo.getHistory();
         history.thenAccept((List<Attempt> s) -> {
             int id = 0;
-            Log.e("external Thread", String.valueOf(s.size()));
             GridLayout gridLayout = (GridLayout) activity.findViewById(R.id.grid);
             for (int i = 0; i < 5; i++) {
                 TextView field = new TextView(activity);
@@ -78,7 +78,7 @@ public class ProfileModel {
      */
     protected void displayUser() {
         CompletableFuture<String> gamesPlayed = this.repo.getUsername();
-        gamesPlayed.thenAccept((String user) -> {
+        gamesPlayed.thenAccept((user) -> {
             TextView field = activity.findViewById(R.id.displayUser);
             field.setText(user);
             field.setTextSize(34);
