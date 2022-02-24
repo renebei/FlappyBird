@@ -3,7 +3,9 @@ package com.example.flappybird.profile;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -45,11 +47,16 @@ public class UserStatistics {
         CompletableFuture<List<Attempt>> history = this.repo.getHistory();
         history.thenAccept((List<Attempt> s) -> {
             int id = 0;
+            Display display = activity.getWindowManager().getDefaultDisplay();
+            DisplayMetrics outMetrics = new DisplayMetrics ();
+            display.getMetrics(outMetrics);
+            float y = outMetrics.heightPixels;
+            float x = outMetrics.widthPixels;
             GridLayout gridLayout = (GridLayout) activity.findViewById(R.id.grid);
             for (int i = 0; i < 5; i++) {
                 TextView field = new TextView(activity);
-                field.setX(350);
-                field.setY((30*i)+200);
+                field.setX(x / 4);
+                field.setY(((y/32)*i));
                 field.setTextSize(18);
                 field.setTypeface(Typeface.MONOSPACE);
                 field.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));

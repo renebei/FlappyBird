@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
  * @author René Beiermann
  * <p>Room Datenbank</p>
  */
-@Database(entities = {User.class, Attempt.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Attempt.class}, version = 23, exportSchema = false)
 public abstract class GameDatabase extends RoomDatabase {
 
     private static volatile GameDatabase database;
