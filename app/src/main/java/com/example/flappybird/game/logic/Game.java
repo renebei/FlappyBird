@@ -42,7 +42,6 @@ public class Game extends Thread {
      * @author David Siegbert
      * runs the gameloop in a thread
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void run(){
         try {
             GameLoop();
@@ -56,7 +55,6 @@ public class Game extends Thread {
      * Runs the game in an infinite loop
      * @throws InterruptedException triggered when thread error
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void GameLoop() throws InterruptedException {
         int frameTimeStartNano = LocalDateTime.now().getNano();
 
@@ -99,19 +97,25 @@ public class Game extends Thread {
             obstacleManager.checkCollision(player, yScale * 1000);
             drawAll(player, obstacleManager.getPipes());
 
-            /**
-             * @author René Beiermann
-             * Sammelt Informationen über den Verlauf des Spielversuches und speichert Ihn in der Datenbank.
-             */
-            if (player.isDead()) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm:ss");
-                LocalDateTime now = LocalDateTime.now();
-                dataAdapter.addAttempt(player.getScore(), dtf.format(now));
-                dataAdapter.incrementGamesPlayed();
-                dataAdapter.updateHighscore(player.getScore());
-                return;
-            }
+            if(insertDatabaseEntry()) return;
         }
+    }
+
+
+    /**
+     * @author René Beiermann
+     * @return boolean für ,,wurde hinzugefügt/wurde nicht hinzugefügt"
+     */
+    private boolean insertDatabaseEntry() {
+        if (player.isDead()) {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            dataAdapter.addAttempt(player.getScore(), dtf.format(now));
+            dataAdapter.incrementGamesPlayed();
+            dataAdapter.updateHighscore(player.getScore());
+            return true;
+        }
+        return false;
     }
 
     /**
