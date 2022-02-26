@@ -14,7 +14,7 @@
   <GridLayout
       android:id="@+id/grid"
       android:layout_width="match_parent"
-      android:layout_height="325dp"
+      android:layout_height="250dp"
       android:layout_marginBottom="40dp"
       android:columnCount="1"
       android:rowCount="5"
