@@ -60,9 +60,6 @@ public class UserStatistics {
                 TextView field = new TextView(activity);
                 field.setX(x / 4);
                 field.setY(((y/32)*i));
-                Log.e("x", String.valueOf(x));
-                Log.e("y", String.valueOf(y));
-
                 field.setTextSize(18);
                 field.setTypeface(Typeface.MONOSPACE);
                 field.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
