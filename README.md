@@ -1,4 +1,4 @@
-e# Programmieren 3 Software Projekt von René Beiermann, David Siegbert
+# Programmieren 3 Software Projekt von René Beiermann, David Siegbert
 
 ## Ordnerstruktur
 1. Im Ordner p:\abgabe\bericht befinden sich der Bericht so wie die Unterschriften.
@@ -14,4 +14,14 @@ e# Programmieren 3 Software Projekt von René Beiermann, David Siegbert
 2. Bei jedem anderen starten der App sollte Play zum Spiel führen, Profile zur Statistik. Dort ist auch der eingetragene Name zu sehen.
 
 3. Der Virtuelle Desktop eignet sich aufgrund seiner Performance nicht sehr gut zum testen der Spielmechanik.
+
+## Bericht
+1. An jedem Thema steht ein Autor. 
+2. Steht an einem Unterpunkt kein Autor, ist sich an den Überpunkten zu orientieren.
+3. Ein Beispiel
+3.1 Softwarearchitektur. Autor: René Beiermann
+    geschrieben von René Beiermann.
+3.1.1 Javadoc
+    geschrieben von René Beiermann.
+    
 
